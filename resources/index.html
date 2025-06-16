@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokéwordle</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="centro">
+        <div class="cartao">
+            <div class="centraliza">
+                <h1>sorteia um pokemon novo</h1>
+                <button id="sorteia" type="reset" onclick="sorteiaNovo()">sorteia</button>
+                <div id="loadingSorteio" style="display: none;">espera sua praga</div>
+
+                <hr>
+
+                <h1>faz um chute</h1>
+                <input id="textoChute">
+                <div id="loadingChute" style="display: none;">espera sua praga</div>
+                <button id="botaoChute" type="submit" onclick="pegaChute()">chuta</button>
+                <button id="botaoLimpa" type="submit" onclick="limpaValores()">limpa</button>
+            </div>
+            <div id="container" class="tabela-resultado"></div>
+        </div>
+    </div>
+    
+</body>
+</html>

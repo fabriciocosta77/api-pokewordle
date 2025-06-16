@@ -40,6 +40,7 @@ def chutePkmnPorNome(nome: str, db: Session = Depends(getDatabase)):
         resultadoComparacao = chute.comparaComSorteado(pokemon_sorteado_da_vez)
         
         return {
+            "spriteUrl": f"{resultadoComparacao["spriteUrl"]}",
             "nomePkmn": f"{resultadoComparacao["nomePkmn"]}",
             "tipo1Pkmn": f"{resultadoComparacao["tipo1Pkmn"]}",
             "tipo2Pkmn": f"{resultadoComparacao["tipo2Pkmn"]}",

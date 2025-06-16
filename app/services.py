@@ -12,27 +12,28 @@ def getDatabase():
     finally:
         db.close()
         
-# pega um id aleatorio de 1 a 151
-# provavelmente vou ajustar pra alterar entre quais geraçoes vao poder aparecer
+# pega um id aleatorio de 1 a 1025
 def criaIdAleatorio():
-    return random.randint(0, 151)
+    return random.randint(0, 1025)
     
 # cria pb.pokemon por id
 # cria pb.pokemon_species por id
 def pegaPokemonPorId(id, db: Session):
     # procura no banco pelo id
-    cache = db.query(PokemonCache).filter(PokemonCache.id == id).first()
+    cache = db.query(PokemonCache).filter(PokemonCache.nrPokedex == id).first()
     
     # se existir no banco pega de lá e retorna aqui mesmo
     if cache:
         return Pokemon(
+            nrPokedex=cache.nrPokedex,
             nome=cache.nome,
             tipo1=cache.tipo1,
             tipo2=cache.tipo2,
             altura=cache.altura,
             peso=cache.peso,
             cor=cache.cor,
-            habitat=cache.habitat
+            habitat=cache.habitat,
+            spriteUrl=cache.spriteUrl
         )
         
     # se nao existir, pega do pb e insere lá
@@ -40,13 +41,15 @@ def pegaPokemonPorId(id, db: Session):
     especie = pb.pokemon_species(id)
     pkmnMontado = montaPokemon(pkmn, especie)
     insereCache = PokemonCache(
+        nrPokedex=pkmnMontado.nrPokedex,
         nome=pkmnMontado.nomePkmn,
         tipo1=pkmnMontado.tipo1Pkmn,
         tipo2=pkmnMontado.tipo2Pkmn,
         altura=pkmnMontado.alturaPkmn,
         peso=pkmnMontado.pesoPkmn,
         cor=pkmnMontado.corPkmn,
-        habitat=pkmnMontado.habitatPkmn
+        habitat=pkmnMontado.habitatPkmn,
+        spriteUrl=pkmnMontado.spriteUrl
     )
     db.add(insereCache)
     db.commit()
@@ -64,26 +67,30 @@ def pegaPokemonPorNome(nome, db: Session):
     # vou pensar nisso depois
     if cache:
         return Pokemon(
+            nrPokedex=cache.nrPokedex,
             nome=cache.nome,
             tipo1=cache.tipo1,
             tipo2=cache.tipo2,
             altura=cache.altura,
             peso=cache.peso,
             cor=cache.cor,
-            habitat=cache.habitat
+            habitat=cache.habitat,
+            spriteUrl=cache.spriteUrl
         )
         
     pkmn = pb.pokemon(nome)
     especie = pb.pokemon_species(nome)
     pkmnMontado = montaPokemon(pkmn, especie)
     insereCache = PokemonCache(
+        nrPokedex=pkmnMontado.nrPokedex,
         nome=pkmnMontado.nomePkmn,
         tipo1=pkmnMontado.tipo1Pkmn,
         tipo2=pkmnMontado.tipo2Pkmn,
         altura=pkmnMontado.alturaPkmn,
         peso=pkmnMontado.pesoPkmn,
         cor=pkmnMontado.corPkmn,
-        habitat=pkmnMontado.habitatPkmn
+        habitat=pkmnMontado.habitatPkmn,
+        spriteUrl=pkmnMontado.spriteUrl
     )
     db.add(insereCache)
     db.commit()
@@ -107,14 +114,18 @@ def montaPokemon(pkmn, especie):
     # nome do habitat em ingles
     # checa se existe pois um pokemon pode nao ter especie
     habitat = especie.habitat.name if especie.habitat else "n/a"
+    # pega esse sprite em especifico
+    sprite = pkmn.sprites.front_default
 
     # retorna os atributos instanciando a classe pokemon
     return Pokemon(
+        nrPokedex=pkmn.id,
         nome=pkmn.name,
         tipo1=tipo1,
         tipo2=tipo2,
         altura=altura,
         peso=peso,
         cor=cor,
-        habitat=habitat
+        habitat=habitat,
+        spriteUrl=sprite
     )

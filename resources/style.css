@@ -1,0 +1,101 @@
+.tabela-resultado {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.cabecalho {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #999;
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.valor {
+    background-color: #fff;
+    font-weight: normal;
+}
+
+.centraliza {
+    text-align: center;
+    background-color: #eeeeee;
+    border: 1px solid #999;
+    max-width: 50vh;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.cartao {
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 100vh;
+    text-align: center;
+  }
+
+.centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0; 
+  }
+
+.certo {
+    background-color: rgb(182, 255, 163);
+}
+
+.errado {
+    background-color: rgb(255, 163, 157);
+}
+
+.centralizaTexto {
+    text-align: center;
+}
+
+#loadingChute, #loadingSorteio {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #e2e2e2;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+#loadingChute::after, #loadingSorteio::after {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 10px;
+    border: 2px solid rgb(0, 0, 0);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#container .valor {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    text-align: center; 
+    height: 100px;
+    padding: 5px;
+    box-sizing: border-box;
+}
