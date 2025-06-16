@@ -33,7 +33,8 @@ def pegaPokemonPorId(id, db: Session):
             peso=cache.peso,
             cor=cache.cor,
             habitat=cache.habitat,
-            spriteUrl=cache.spriteUrl
+            spriteUrl=cache.spriteUrl,
+            geracao=cache.geracao
         )
         
     # se nao existir, pega do pb e insere lá
@@ -49,7 +50,8 @@ def pegaPokemonPorId(id, db: Session):
         peso=pkmnMontado.pesoPkmn,
         cor=pkmnMontado.corPkmn,
         habitat=pkmnMontado.habitatPkmn,
-        spriteUrl=pkmnMontado.spriteUrl
+        spriteUrl=pkmnMontado.spriteUrl,
+        geracao=pkmnMontado.geracao
     )
     db.add(insereCache)
     db.commit()
@@ -75,7 +77,8 @@ def pegaPokemonPorNome(nome, db: Session):
             peso=cache.peso,
             cor=cache.cor,
             habitat=cache.habitat,
-            spriteUrl=cache.spriteUrl
+            spriteUrl=cache.spriteUrl,
+            geracao=cache.geracao
         )
         
     pkmn = pb.pokemon(nome)
@@ -90,7 +93,8 @@ def pegaPokemonPorNome(nome, db: Session):
         peso=pkmnMontado.pesoPkmn,
         cor=pkmnMontado.corPkmn,
         habitat=pkmnMontado.habitatPkmn,
-        spriteUrl=pkmnMontado.spriteUrl
+        spriteUrl=pkmnMontado.spriteUrl,
+        geracao=pkmnMontado.geracao
     )
     db.add(insereCache)
     db.commit()
@@ -116,6 +120,8 @@ def montaPokemon(pkmn, especie):
     habitat = especie.habitat.name if especie.habitat else "n/a"
     # pega esse sprite em especifico
     sprite = pkmn.sprites.front_default
+    # geracao da especie introduzida
+    geracao = especie.generation.name
 
     # retorna os atributos instanciando a classe pokemon
     return Pokemon(
@@ -127,5 +133,6 @@ def montaPokemon(pkmn, especie):
         peso=peso,
         cor=cor,
         habitat=habitat,
-        spriteUrl=sprite
+        spriteUrl=sprite,
+        geracao=geracao
     )

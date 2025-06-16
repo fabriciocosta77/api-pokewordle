@@ -5,7 +5,7 @@ from app.config import Base
 # sujeito a mudanças eu acho
 
 class Pokemon:
-    def __init__(self, nrPokedex, nome, tipo1, tipo2, altura, peso, cor, habitat, spriteUrl):
+    def __init__(self, nrPokedex, nome, tipo1, tipo2, altura, peso, cor, habitat, spriteUrl, geracao):
         self.nrPokedex = nrPokedex
         self.nomePkmn = nome
         self.tipo1Pkmn = tipo1
@@ -15,6 +15,7 @@ class Pokemon:
         self.corPkmn = cor
         self.habitatPkmn = habitat
         self.spriteUrl = spriteUrl
+        self.geracao = geracao
         
     # compara os atributos da instancia com outra instancia
     # fiz isso tendo em vista q a primeira instancia vai ser sempre o chute e a segunda instancia vai ser sempre o sorteado
@@ -23,7 +24,7 @@ class Pokemon:
         
     def comparaComSorteado(self, sorteado):
         resultado = {}
-        for atributo in ["spriteUrl", "nomePkmn", "tipo1Pkmn", "tipo2Pkmn", "alturaPkmn", "pesoPkmn", "corPkmn", "habitatPkmn"]:
+        for atributo in ["spriteUrl", "nomePkmn", "tipo1Pkmn", "tipo2Pkmn", "alturaPkmn", "pesoPkmn", "corPkmn", "habitatPkmn", "geracao"]:
             # S se acertou
             # N se errou
             resultado[atributo] = [f"{getattr(self, atributo)}S"] if getattr(self, atributo) == getattr(sorteado, atributo) else [f"{getattr(self, atributo)}N"]
@@ -44,3 +45,4 @@ class PokemonCache(Base):
     cor = Column(String)
     habitat = Column(String)
     spriteUrl = Column(String)
+    geracao = Column(String)
