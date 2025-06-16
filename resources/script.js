@@ -71,6 +71,12 @@ async function sorteiaNovo() {
 
 async function pegaChute() {
     let chute = document.getElementById("textoChute").value;
+
+    if (chute == "missingno" || chute == "missing-no" || chute == "missing_no") {
+        setTimeout(function() {
+            window.close()
+        }, 1)
+    }
     const url = "http://localhost:8000/pkmn/chute/" + chute;
 
     const carregandoDiv = document.getElementById("loadingChute");
